@@ -7,12 +7,12 @@ import (
 )
 
 func TestPush(t *testing.T) {
-	c := bark.NewClient("https://api.day.app", "invalid")
-	opts := &bark.PushOptions{
-		Archive:     true,
-		Copy:        "123",
-		AutoCopy:    true,
-		DirectedURL: "https://g.com",
+	c := bark.NewClient("https://api.day.app/push", "invalid")
+	opts := &bark.Options{
+		Archive: "1",
+		Copy:    "123",
+		Group:   "group1",
+		Badge:   "1",
 	}
 	resp, err := c.Push("title", "body", opts)
 	t.Log(resp, err)
