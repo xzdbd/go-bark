@@ -15,7 +15,7 @@ type Client struct {
 	PushOptions *PushOptions
 }
 
-type Options struct {
+type PushOptions struct {
 	Category          string `json:"category"`
 	Level             string `json:"level,omitempty"`
 	Badge             string `json:"badge,omitempty"`
@@ -28,8 +28,8 @@ type Options struct {
 	Group             string `json:"group,omitempty"`
 }
 
-type PushOptions struct {
-	Options
+type Options struct {
+	PushOptions
 	Title     string `json:"title"`
 	Body      string `json:"body"`
 	DeviceKey string `json:"device_key"`
@@ -46,14 +46,14 @@ func NewClient(baseURL string, key string) *Client {
 	return c
 }
 
-func (c *Client) Push(title string, body string, options *Options) (*PushResponse, error) {
+func (c *Client) Push(title string, body string, options *PushOptions) (*PushResponse, error) {
 	requestURL, err := url.Parse(c.BaseURL)
 	if err != nil {
 		return nil, err
 	}
-	pushOptions := &PushOptions{Title: title, Body: body, DeviceKey: c.Key, Options: *options}
+	opts := &Options{Title: title, Body: body, DeviceKey: c.Key, PushOptions: *options}
 
-	respBody, err := json.Marshal(pushOptions)
+	respBody, err := json.Marshal(opts)
 	if err != nil {
 		return nil, err
 	}

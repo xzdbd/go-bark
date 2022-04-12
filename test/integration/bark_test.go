@@ -8,7 +8,7 @@ import (
 
 func TestPush(t *testing.T) {
 	c := bark.NewClient("https://api.day.app/push", "invalid")
-	opts := &bark.Options{
+	opts := &bark.PushOptions{
 		Archive: "1",
 		Copy:    "123",
 		Group:   "group1",
